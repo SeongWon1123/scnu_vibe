@@ -9,7 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "crawl": "tsx crawler/index.ts"
+    "crawl": "node --env-file-if-exists=.env.local --import tsx crawler/index.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.3",

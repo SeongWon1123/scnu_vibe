@@ -11,10 +11,20 @@ async function main(): Promise<void> {
     )
   }
 
+  const insertedNotices = results.flatMap(result => result.inserted)
+  if (insertedNotices.length > 0) {
+    const { sendPushes } = await import("./push")
+    await sendPushes(insertedNotices)
+  }
+
   const failed = results.filter(result => result.error !== null)
   if (failed.length > 0) {
     console.error(`[crawl] completed with ${failed.length} board error(s)`)
+    process.exitCode = 1
+    return
   }
+
+  console.log(`[crawl] done, ${insertedNotices.length} inserted total`)
 }
 
 main().catch(error => {

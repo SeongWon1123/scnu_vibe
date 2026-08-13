@@ -7,31 +7,36 @@
 | Name | Sunmoa |
 | Purpose | Zero-cost central notifier for Sunchon National University announcements and commuter-bus information. |
 | GitHub | https://github.com/SeongWon1123/scnu_vibe |
-| Branch | `feature/sunmoa-mvp`, tracking `origin/main` |
-| Current milestone | Task 1 through Task 4 complete; Task 5 connection and deployment validation are next. |
+| Branch | current working branch |
+| Current milestone | Notice feed, calendar export, commuter-bus page, keyword push subscribe/send, and a 3x-daily Actions workflow are in code. |
 
-## Completed foundation
+## What is in the repo
 
-Task 1 created the Next.js scaffold, dependencies, Vitest setup, environment template, and smoke test. Task 2 added the six verified board targets, URL builders, fixtures, and crawl-target documentation. Task 3 added the resilient list parser and fixture tests.
+- Crawl pipeline: polite fetch, parse, deadline extraction, insert-only new notices, non-zero exit on board errors.
+- Feed UI: disclaimer, board tabs, search, D-day/NEW badges, source links, Google Calendar + ICS.
+- Bus page: Yeosu / Donggwangyang / Gwangju cards plus the published Suncheon morning loop. Intercity times are PDF-only behind `/upload/` (disallowed by robots.txt), so those arrays stay empty and the UI links to the official page and `scnu.unibus.kr`.
+- Web Push: `/alerts` keyword subscribe, `/api/subscribe`, `public/sw.js`. Crawl sends at most 3 matching notifications per subscriber.
+- GitHub Actions: `.github/workflows/crawl.yml` at 07:00 / 12:30 / 18:30 KST. Secrets must be added in the GitHub repo before the first scheduled run.
 
-Task 4 now provides `crawler/fetch.ts`, `crawler/run.ts`, and `crawler/store.ts`. The fetcher sends an identifiable SunmoaBot user agent, exposes a three-second delay constant, and returns `null` for HTTP, network, or body-read failures. The runner processes boards sequentially, waits between boards, parses returned HTML, and continues after a board-level failure. The store module maps parsed notices to the Supabase schema and upserts on `(board, ntt_sn)` without throwing a database error into later boards.
+## Required secrets
 
-The Task 5 DDL and verification SQL are committed under `supabase/`. `lib/supabase.ts` provides fail-fast anon and service-role clients. No Supabase project has been connected or modified in this task because the session's Supabase integration is disabled and no real credentials were provided.
+Do not commit these. Put them in `.env.local` and in GitHub Actions secrets / Vercel env:
 
-## Verification and constraints
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `NEXT_PUBLIC_VAPID_PUBLIC_KEY`
+- `VAPID_PRIVATE_KEY`
+- `VAPID_SUBJECT` (`mailto:` operator email)
 
-The current codebase passes `npm test` with 23 tests, `npm run lint`, and `npm run build`. Fetcher, store, and runner tests use injected mocks; no unit test requests the school site or a real database.
-
-The project must remain free to operate, avoid user accounts, store only the future push endpoint/keys/keywords, show the non-official-service disclaimer, retain a source link per notice, and run its production crawler only three times daily with at least three seconds between requests.
-
-## Required activation before the first real crawl
-
-1. Create or connect a Supabase Free-tier project.
-2. Apply `supabase/migrations/0001_init.sql` and run `supabase/verify/0001_init_verify.sql`.
-3. Put the real project URL, anon key, and service-role key in the untracked `.env.local` file or secure deployment secrets.
-4. Run `npm run crawl` once manually and inspect only aggregate board results.
-5. Do not commit secrets, raw live notice responses, or push endpoints.
+Generate VAPID keys with `npx web-push generate-vapid-keys`.
 
 ## Immediate next action
 
-Complete Task 5 by connecting the actual Supabase project and verifying RLS boundaries. Then implement Task 6 deadline extraction and extend the runner in Task 7 with new-notice detection before enabling the three-times-daily GitHub Actions workflow.
+1. Confirm a local `npm run crawl` stored notices and `/` shows them.
+2. Add VAPID keys, register a keyword on `/alerts`, and confirm a row in `push_subscriptions`.
+3. Add the Actions secrets listed above, then run the `crawl` workflow once with `workflow_dispatch`.
+4. Deploy to Vercel with the same public and server env vars.
+5. Each term, update `data/bus-schedules.json` from the official bus page if times become available as text.
+
+Passwords and private keys are never recorded here. Locations only: `.env.local`, GitHub Actions secrets, Vercel env.
