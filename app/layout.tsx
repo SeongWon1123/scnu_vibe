@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { DisclaimerBanner } from "@/components/DisclaimerBanner"
+import { SiteNav } from "@/components/SiteNav"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -29,8 +30,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </a>
           </div>
         </header>
-        <main className="flex-1">{children}</main>
-        <footer className="border-t border-zinc-200 bg-white/70">
+        <main className="flex-1 pb-16">{children}</main>
+        <footer className="border-t border-zinc-200 bg-white/70 pb-16">
           <div className="mx-auto max-w-3xl px-4 py-4 text-xs leading-5 text-zinc-500">
             학교 공식 서비스가 아닙니다. 마감일 등 중요한 정보는 반드시 원문을 확인하세요.
             <br />
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </a>
           </div>
         </footer>
+        <SiteNav />
       </body>
     </html>
   )

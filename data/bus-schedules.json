@@ -1,0 +1,46 @@
+{
+  "updatedAt": "2026-02-11",
+  "source": "https://www.scnu.ac.kr/haksa/cm/cntnts/cntntsView.do?mi=1511&cntntsId=1353",
+  "reservationUrl": "https://scnu.unibus.kr",
+  "routes": [
+    {
+      "id": "yeosu",
+      "name": "여수",
+      "toSchool": [],
+      "fromSchool": [],
+      "stops": [],
+      "notes": "예약 필수. 시각은 학기마다 바뀌며 공식 안내 PDF와 통학버스시스템에서 확인하세요. 방학 중 미운영 여부는 원문 확인."
+    },
+    {
+      "id": "gwangyang",
+      "name": "동광양",
+      "toSchool": [],
+      "fromSchool": [],
+      "stops": [],
+      "notes": "예약 필수. 시각은 학기마다 바뀌며 공식 안내 PDF와 통학버스시스템에서 확인하세요. 방학 중 미운영 여부는 원문 확인."
+    },
+    {
+      "id": "gwangju",
+      "name": "광주",
+      "toSchool": [],
+      "fromSchool": [],
+      "stops": [],
+      "notes": "예약 필수. 시각은 학기마다 바뀌며 공식 안내 PDF와 통학버스시스템에서 확인하세요. 방학 중 미운영 여부는 원문 확인."
+    },
+    {
+      "id": "suncheon",
+      "name": "순천",
+      "toSchool": ["07:58"],
+      "fromSchool": [],
+      "stops": [
+        "남정동 통합인력 앞 버스정류장",
+        "덕월동 내바다팝스골프",
+        "연향동 우미아파트 건너편",
+        "조례동 하이마트 앞 버스정류장",
+        "조례동 시영아파트 버스정류장",
+        "학교"
+      ],
+      "notes": "출발시간 기준 오전 코스. 07:58 남정동 → 08:00 덕월동 → 08:14 연향동 → 08:17 조례 하이마트 → 08:20 조례 시영 → 학교. 문의 061-750-3078. 하교 시각은 원문 확인."
+    }
+  ]
+}
