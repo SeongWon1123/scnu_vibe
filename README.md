@@ -6,7 +6,7 @@ Sunmoa is a zero-cost web notifier for Sunchon National University students. It 
 
 ## Current milestone
 
-**The crawl pipeline and unified notice feed are in the repository.** The app can list crawled notices with board tabs, title search, D-day badges, source links, and calendar export. A live Supabase project still has to be connected, and `npm run crawl` must run once, before the feed has real data. Commuter-bus, keyword push, and GitHub Actions scheduling are next.
+**Feed, bus, calendar, and keyword-alert code are in the repository.** After a local crawl the homepage can show notices. `/bus` links to the official timetable and reservation system. `/alerts` registers keyword Web Push. GitHub Actions is scheduled three times a day but needs repository secrets before it can run.
 
 ## MVP scope
 
