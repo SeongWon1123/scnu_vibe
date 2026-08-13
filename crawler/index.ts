@@ -11,7 +11,12 @@ async function main(): Promise<void> {
     )
   }
 
-  const inserted = results.reduce((sum, result) => sum + result.stored, 0)
+  const insertedNotices = results.flatMap(result => result.inserted)
+  if (insertedNotices.length > 0) {
+    const { sendPushes } = await import("./push")
+    await sendPushes(insertedNotices)
+  }
+
   const failed = results.filter(result => result.error !== null)
   if (failed.length > 0) {
     console.error(`[crawl] completed with ${failed.length} board error(s)`)
@@ -19,7 +24,7 @@ async function main(): Promise<void> {
     return
   }
 
-  console.log(`[crawl] done, ${inserted} inserted total`)
+  console.log(`[crawl] done, ${insertedNotices.length} inserted total`)
 }
 
 main().catch(error => {
