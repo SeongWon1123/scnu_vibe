@@ -7,20 +7,20 @@
 | Name | Sunmoa |
 | Purpose | Zero-cost central notifier for Sunchon National University announcements and commuter-bus information. |
 | GitHub | https://github.com/SeongWon1123/scnu_vibe |
-| Branch | `feature/sunmoa-mvp`, tracking `origin/main` |
-| Current milestone | Task 1 through Task 4 complete; Task 5 connection and deployment validation are next. |
+| Branch | current working branch, tracking `origin/main` |
+| Current milestone | Tasks 1–5 plus crawl storage, deadline extraction, and new-notice detection are in code. A live Supabase project is still required before the first real crawl. |
 
 ## Completed foundation
 
-Task 1 created the Next.js scaffold, dependencies, Vitest setup, environment template, and smoke test. Task 2 added the six verified board targets, URL builders, fixtures, and crawl-target documentation. Task 3 added the resilient list parser and fixture tests.
+Task 1 created the Next.js scaffold, dependencies, Vitest setup, environment template, and smoke test. Task 2 added the six verified board targets, URL builders, fixtures, and crawl-target documentation. Task 3 added the resilient list parser and fixture tests. Task 4 added the polite fetcher with an identifiable SunmoaBot user agent and a three-second delay constant.
 
-Task 4 now provides `crawler/fetch.ts`, `crawler/run.ts`, and `crawler/store.ts`. The fetcher sends an identifiable SunmoaBot user agent, exposes a three-second delay constant, and returns `null` for HTTP, network, or body-read failures. The runner processes boards sequentially, waits between boards, parses returned HTML, and continues after a board-level failure. The store module maps parsed notices to the Supabase schema and upserts on `(board, ntt_sn)` without throwing a database error into later boards.
+Task 5 committed `supabase/migrations/0001_init.sql`, verification SQL, and fail-fast anon/service-role clients in `lib/supabase.ts`. No Supabase project has been connected in this environment because credentials were not provided.
 
-The Task 5 DDL and verification SQL are committed under `supabase/`. `lib/supabase.ts` provides fail-fast anon and service-role clients. No Supabase project has been connected or modified in this task because the session's Supabase integration is disabled and no real credentials were provided.
+The crawl pipeline (`crawler/run.ts`, `crawler/store.ts`, `crawler/index.ts`) fetches boards sequentially, waits between requests, continues after a board-level failure, extracts deadlines from titles, and inserts only unseen `(board, ntt_sn)` rows. An empty parse is treated as a layout-change error. The CLI exits non-zero when any board fails so a future GitHub Actions schedule can alert on crawler problems. `npm run crawl` loads `.env.local` when that file exists and still works in CI when environment variables are injected directly.
 
 ## Verification and constraints
 
-The current codebase passes `npm test` with 23 tests, `npm run lint`, and `npm run build`. Fetcher, store, and runner tests use injected mocks; no unit test requests the school site or a real database.
+Run `npm test`, `npm run lint`, and `npm run build` after source changes. Fetcher, store, runner, deadline, and diff tests use injected mocks or fixtures; unit tests do not request the school site or a real database.
 
 The project must remain free to operate, avoid user accounts, store only the future push endpoint/keys/keywords, show the non-official-service disclaimer, retain a source link per notice, and run its production crawler only three times daily with at least three seconds between requests.
 
@@ -34,4 +34,4 @@ The project must remain free to operate, avoid user accounts, store only the fut
 
 ## Immediate next action
 
-Complete Task 5 by connecting the actual Supabase project and verifying RLS boundaries. Then implement Task 6 deadline extraction and extend the runner in Task 7 with new-notice detection before enabling the three-times-daily GitHub Actions workflow.
+Connect the actual Supabase project and verify RLS boundaries. Then implement Task 8 calendar export and Task 9 unified feed UI (disclaimer banner, source links, D-day, and the Korean starter-page replacement). Do not enable the three-times-daily GitHub Actions workflow until a successful manual crawl against the live database.

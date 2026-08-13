@@ -2,11 +2,11 @@
 
 Sunmoa is a zero-cost web notifier for Sunchon National University students. It gives commuters one place to check university announcements and commuter-bus information each morning.
 
-> Sunmoa is not an official Sunchon National University service. The product UI must later show the required Korean disclaimer prominently and link every notice to its school source page.
+> 본 서비스는 국립순천대학교 공식 서비스가 아닙니다. 크롤링 지연·오류로 정보가 다를 수 있으니, 마감일 등 중요한 정보는 반드시 학교 홈페이지 원문을 확인하세요.
 
 ## Current milestone
 
-**Task 1 through Task 4 are complete.** The project has a Next.js and Vitest scaffold, six verified announcement-board configurations, resilient parsing, a polite fetcher, and a test-covered crawl-to-store pipeline. Task 5 connects that pipeline to an actual Supabase Free-tier project and applies the prepared schema.
+**Tasks 1–5 plus crawl storage are in the repository.** The project has a Next.js and Vitest scaffold, six verified announcement-board configurations, resilient parsing, a polite fetcher, a Supabase schema with RLS, deadline extraction from titles, and a crawl pipeline that inserts only new notices. A live Supabase project still has to be connected before `npm run crawl` can persist real data. The root page remains a placeholder until the unified feed UI is built.
 
 ## MVP scope
 
