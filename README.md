@@ -6,7 +6,7 @@ Sunmoa is a zero-cost web notifier for Sunchon National University students. It 
 
 ## Current milestone
 
-**Task 1 through Task 3 are complete.** The project has a Next.js and Vitest scaffold, six verified announcement-board configurations, fixture HTML for the academic listing and an invalid request, crawl-target documentation, and a resilient parser validated against all six live board listings. Task 4 will add the polite fetcher.
+**Task 1 through Task 4 are complete.** The project has a Next.js and Vitest scaffold, six verified announcement-board configurations, resilient parsing, a polite fetcher, and a test-covered crawl-to-store pipeline. Task 5 connects that pipeline to an actual Supabase Free-tier project and applies the prepared schema.
 
 ## MVP scope
 
@@ -33,7 +33,7 @@ npm run dev
 | `npm test` | Run Vitest once. |
 | `npm run test:watch` | Run Vitest in watch mode. |
 | `npm run build` | Create a production build. |
-| `npm run crawl` | Reserved for Task 7; unavailable until `crawler/index.ts` exists. |
+| `npm run crawl` | Fetch, parse, and upsert the configured boards. Requires an applied migration and real Supabase environment values. |
 
 ## Repository guide
 
