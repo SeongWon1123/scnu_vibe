@@ -57,3 +57,17 @@ https://www.scnu.ac.kr/{site}/na/ntt/selectNttInfo.do?nttSn={nttSn}&mi={mi}
 | Date | Change |
 | --- | --- |
 | 2026-08-13 | Added six-board configuration, live academic fixture, invalid-response fixture, URL contract, and observed selectors. |
+## Live parser validation
+
+On 2026-08-13, one current list page per board was requested with the SunmoaBot user agent, a three-second pause between requests, and no pagination. Each response was HTTP 200 and `parseNoticeList` returned one or more rows.
+
+| Board | Response bytes | Parsed rows | Pinned rows | Error |
+| --- | ---: | ---: | ---: | --- |
+| general | 114,640 | 10 | 0 | none |
+| academic | 124,605 | 23 | 13 | none |
+| scholarship | 115,478 | 11 | 1 | none |
+| event | 113,399 | 10 | 0 | none |
+| recruit | 114,854 | 10 | 0 | none |
+| dorm | 46,507 | 19 | 9 | none |
+
+The transient live responses are not committed. The academic and invalid-request fixtures remain the deterministic test inputs.

@@ -6,7 +6,7 @@ Sunmoa is a zero-cost web notifier for Sunchon National University students. It 
 
 ## Current milestone
 
-**Task 1 and Task 2 are complete.** The project has a Next.js and Vitest scaffold, six verified announcement-board configurations, fixture HTML for the academic listing and an invalid request, and crawl-target documentation. Task 3 will implement the resilient list parser.
+**Task 1 through Task 3 are complete.** The project has a Next.js and Vitest scaffold, six verified announcement-board configurations, fixture HTML for the academic listing and an invalid request, crawl-target documentation, and a resilient parser validated against all six live board listings. Task 4 will add the polite fetcher.
 
 ## MVP scope
 
