@@ -6,7 +6,7 @@ Sunmoa is a zero-cost web notifier for Sunchon National University students. It 
 
 ## Current milestone
 
-**Tasks 1–5 plus crawl storage are in the repository.** The project has a Next.js and Vitest scaffold, six verified announcement-board configurations, resilient parsing, a polite fetcher, a Supabase schema with RLS, deadline extraction from titles, and a crawl pipeline that inserts only new notices. A live Supabase project still has to be connected before `npm run crawl` can persist real data. The root page remains a placeholder until the unified feed UI is built.
+**The crawl pipeline and unified notice feed are in the repository.** The app can list crawled notices with board tabs, title search, D-day badges, source links, and calendar export. A live Supabase project still has to be connected, and `npm run crawl` must run once, before the feed has real data. Commuter-bus, keyword push, and GitHub Actions scheduling are next.
 
 ## MVP scope
 
